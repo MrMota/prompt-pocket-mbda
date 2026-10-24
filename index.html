@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171923">
+  <meta name="description" content="A private, offline-friendly library for your text prompts.">
+  <title>Prompt Pocket</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">YOUR PERSONAL LIBRARY</p>
+      <h1>Prompt Pocket</h1>
+    </div>
+    <button id="installButton" class="button button-quiet hidden" type="button">
+      Install
+    </button>
+  </header>
+
+  <main class="page">
+    <section class="toolbar" aria-label="Prompt tools">
+      <label class="search-box">
+        <span class="sr-only">Search prompts</span>
+        <span aria-hidden="true">⌕</span>
+        <input id="searchInput" type="search" placeholder="Search your prompts">
+      </label>
+
+      <div class="toolbar-row">
+        <label class="select-wrap">
+          <span class="sr-only">Filter by category</span>
+          <select id="categoryFilter">
+            <option value="all">All categories</option>
+            <option>Image</option>
+            <option>Video</option>
+            <option>Chat</option>
+            <option>Blog</option>
+            <option>Business</option>
+            <option>Writing</option>
+            <option>Marketing</option>
+            <option>Coding</option>
+            <option>Study</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <button id="favoritesButton" class="button button-quiet" type="button"
+                aria-pressed="false">
+          ☆ Favorites
+        </button>
+        <button id="addButton" class="button button-primary" type="button">
+          + Add prompt
+        </button>
+      </div>
+
+      <div class="toolbar-row file-actions">
+        <button id="exportButton" class="text-button" type="button">Export backup</button>
+        <button id="importButton" class="text-button" type="button">Import backup</button>
+        <input id="importFile" class="hidden" type="file" accept="application/json,.json">
+      </div>
+    </section>
+
+    <section class="list-heading">
+      <h2>Your prompts</h2>
+      <span id="promptCount" class="count">0 prompts</span>
+    </section>
+
+    <section id="promptList" class="prompt-list" aria-live="polite"></section>
+  </main>
+
+  <dialog id="editorDialog" class="editor-dialog">
+    <form id="promptForm" class="editor-form">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">PROMPT DETAILS</p>
+          <h2 id="dialogTitle">Add a prompt</h2>
+        </div>
+        <button id="closeDialog" class="icon-button" type="button" aria-label="Close">
+          ×
+        </button>
+      </div>
+
+      <label class="field">
+        <span>Title <span class="muted">(optional)</span></span>
+        <input id="titleInput" type="text" maxlength="100"
+               placeholder="e.g. Product photo — clean studio">
+      </label>
+
+      <label class="field">
+        <span>Category</span>
+        <select id="categoryInput" required>
+          <option>Image</option>
+          <option>Video</option>
+          <option>Chat</option>
+          <option>Blog</option>
+          <option>Business</option>
+          <option>Writing</option>
+          <option>Marketing</option>
+          <option>Coding</option>
+          <option>Study</option>
+          <option>Other</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Prompt</span>
+        <textarea id="bodyInput" required rows="8"
+                  placeholder="Write or paste your prompt here..."></textarea>
+      </label>
+
+      <div class="dialog-actions">
+        <button id="cancelButton" class="button button-quiet" type="button">
+          Cancel
+        </button>
+        <button class="button button-primary" type="submit">Save prompt</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
